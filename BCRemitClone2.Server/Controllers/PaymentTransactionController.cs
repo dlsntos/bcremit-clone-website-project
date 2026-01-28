@@ -80,47 +80,47 @@ namespace BCRemitClone2.Server.Controllers
             return NoContent();
         }
 
-            [Authorize]
-            [HttpGet("{id}/confirm-payment")]
-            public async Task<ActionResult<ConfirmPageDto>> GetConfirmPage(Guid id)
+        [Authorize]
+        [HttpGet("{id}/confirm-payment")]
+        public async Task<ActionResult<ConfirmPageDto>> GetConfirmPage(Guid id)
+        {
+            var transaction = await _context.transactionHistories
+                .Include(b => b.Beneficiary)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (transaction == null) return NotFound();
+
+            var senderBank = await _context.UserBankAccountDetails
+                .FirstAsync(b => b.UserId == transaction.UserId && b.IsDefault);
+
+            var beneficiaryBank = await _context.BeneficiaryBankAccounts
+                .FirstAsync(b => b.BeneficiaryId == transaction.BeneficiaryId);
+
+            var reference = $"TX-{transaction.Id.ToString()[..8]}";
+
+            return Ok(new ConfirmPageDto
             {
-                var transaction = await _context.transactionHistories
-                    .Include(b => b.Beneficiary)
-                    .FirstOrDefaultAsync(t => t.Id == id);
-
-                if (transaction == null) return NotFound();
-
-                var senderBank = await _context.UserBankAccountDetails
-                    .FirstAsync(b => b.UserId == transaction.UserId && b.IsDefault);
-
-                var beneficiaryBank = await _context.BeneficiaryBankAccounts
-                    .FirstAsync(b => b.BeneficiaryId == transaction.BeneficiaryId);
-
-                var reference = $"TX-{transaction.Id.ToString()[..8]}";
-
-                return Ok(new ConfirmPageDto
-                {
-                    Amount = transaction.SendAmount,
-                    Fee = transaction.TransferFee,
-                    Total = transaction.TotalAmount,
-                    SenderBank = new BankDto
-                    {
-                        BankName = senderBank.BankName,
-                        AccountName = senderBank.AccountName,
-                        SortCode = senderBank.SortCode,
-                        AccountNumber = senderBank.AccountNumber,
-                        Reference = reference
-                    },
-                    BeneficiaryBank = new BankDto
-                    {
-                        BankName = beneficiaryBank.BankName,
-                        AccountName = beneficiaryBank.AccountName,
-                        SortCode = beneficiaryBank.SortCode,
-                        AccountNumber = beneficiaryBank.AccountNumber,
-                        Reference = reference
-                    }
-                });
-            }
+              Amount = transaction.SendAmount,
+              Fee = transaction.TransferFee,
+              Total = transaction.TotalAmount,
+              SenderBank = new BankDto
+              {
+                BankName = senderBank.BankName,
+                AccountName = senderBank.AccountName,
+                SortCode = senderBank.SortCode,
+                AccountNumber = senderBank.AccountNumber,
+                Reference = reference
+              },
+              BeneficiaryBank = new BankDto
+              {
+                BankName = beneficiaryBank.BankName,
+                AccountName = beneficiaryBank.AccountName,
+                SortCode = beneficiaryBank.SortCode,
+                AccountNumber = beneficiaryBank.AccountNumber,
+                Reference = reference
+              }
+            });
+        }
 
         [Authorize]
         [HttpPost("{id}/confirm-payment")]
