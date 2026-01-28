@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import "tailwindcss";
+
+
+
+@theme {
+    --color-bluewhale: #042E4C;
+    --color-greenblue: #4BC8CA;
+    --color-lightblue: #edf4fa;
+    --font-figtree: "FigTree", sans-serif;
+}
+
+@layer utilities {
+    @media (min-width: 400px) and (max-width: 700px) {
+        .hide-400-600 {
+            display: none;
+        }
+    }
+
+    @media (min-width: 400px) and (max-width: 700px) {
+        .display-400-600 {
+            display: block;
+        }
+    }
+
+}
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+
