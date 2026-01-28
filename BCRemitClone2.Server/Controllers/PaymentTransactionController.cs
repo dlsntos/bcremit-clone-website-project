@@ -81,6 +81,34 @@ namespace BCRemitClone2.Server.Controllers
         }
 
         [Authorize]
+        [HttpGet("{id}/transaction-information")]
+        public async Task<ActionResult<TransactionDto>> GetTransactionInformation(int id)
+        {
+            var transaction = await _context.transactionHistories
+                .Include(b => b.Beneficiary)
+                .Where(t => t.BeneficiaryId == id)
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+
+            if (transaction == null) return NotFound();
+
+            return Ok(new TransactionDto
+            {
+                Id = transaction.Id,
+                UserId = transaction.UserId,
+                BeneficiaryId = transaction.BeneficiaryId,
+                SendAmount = transaction.SendAmount,
+                TransferFee = transaction.TransferFee,
+                TotalAmount = transaction.TotalAmount,
+                PurposeOfRemittance = transaction.PurposeOfRemittance,
+                PaymentMethod = transaction.PaymentMethod,
+                Status = transaction.Status,
+                CreatedAt = transaction.CreatedAt,
+                CompletedAt = transaction.CompletedAt,
+            });
+        }
+
+        [Authorize]
         [HttpGet("{id}/confirm-payment")]
         public async Task<ActionResult<ConfirmPageDto>> GetConfirmPage(Guid id)
         {
