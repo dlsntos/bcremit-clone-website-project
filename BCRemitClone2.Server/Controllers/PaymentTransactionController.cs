@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace BCRemitClone2.Server.Controllers
 {
-    [Route("api/transactions")]
+    [Route("api/v1/transactions")]
     [ApiController]
     public class PaymentTransactionController : ControllerBase
     {
