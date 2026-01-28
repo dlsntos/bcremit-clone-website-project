@@ -1,4 +1,5 @@
-﻿using BCRemitClone2.Server.Enums;
+﻿using BCRemitClone2.Server.Dtos.Beneficiary;
+using BCRemitClone2.Server.Enums;
 
 namespace BCRemitClone2.Server.Dtos.Payment
 {
@@ -7,6 +8,7 @@ namespace BCRemitClone2.Server.Dtos.Payment
         public Guid Id { get; set; }
         public string UserId { get; set; } = default!;
         public int BeneficiaryId { get; set; }
+        public string BeneficiaryName { get; set; } = default!;
         public decimal SendAmount { get; set; }
         public decimal TransferFee { get; set; }
         public decimal TotalAmount { get; set; }
