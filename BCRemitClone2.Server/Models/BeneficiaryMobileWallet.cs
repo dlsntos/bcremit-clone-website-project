@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BCRemitClone2.Server.Models
@@ -14,6 +13,5 @@ namespace BCRemitClone2.Server.Models
         public int? BeneficiaryId { get; set; }
         [ForeignKey(nameof(BeneficiaryId))]
         public Beneficiary? Beneficiary { get; set; }
-
     }
 }

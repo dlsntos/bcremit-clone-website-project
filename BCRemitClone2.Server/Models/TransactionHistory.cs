@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using BCRemitClone2.Server.Enums;
+﻿using BCRemitClone2.Server.Enums;
 
 namespace BCRemitClone2.Server.Models
 {
