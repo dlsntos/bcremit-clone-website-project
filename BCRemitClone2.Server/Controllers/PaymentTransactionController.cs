@@ -1,4 +1,5 @@
 ﻿using BCRemitClone2.Server.Data;
+using BCRemitClone2.Server.Dtos.Beneficiary;
 using BCRemitClone2.Server.Dtos.Payment;
 using BCRemitClone2.Server.Enums;
 using BCRemitClone2.Server.Models;
@@ -107,6 +108,7 @@ namespace BCRemitClone2.Server.Controllers
                 Id = transaction.Id,
                 UserId = transaction.UserId,
                 BeneficiaryId = transaction.BeneficiaryId,
+                BeneficiaryName = $"{transaction.Beneficiary.FirstName} {transaction?.Beneficiary.MiddleName} {transaction!.Beneficiary.LastName}",
                 SendAmount = transaction.SendAmount,
                 TransferFee = transaction.TransferFee,
                 TotalAmount = transaction.TotalAmount,
