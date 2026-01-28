@@ -6,6 +6,7 @@ import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { gbpToPhpConversions } from '../helper/currencyConversion';
 import { useState } from 'react';
+import api from '../../../api/axios';
 
 interface beneficiaryDetailsLocationState {
   fullName: string,
@@ -13,7 +14,7 @@ interface beneficiaryDetailsLocationState {
 }
 interface TransactionPayload {
   sendAmount: string,
-  paymentMethod: string,  
+  paymentMethod: string,
 };
 function Step1() {
 
@@ -33,8 +34,28 @@ function Step1() {
 
   const navigate = useNavigate();
 
-  const handleProceed = (e: React.FormEvent) => {
+
+  const createTransaction = async () => {
+    try {
+
+      const payload = {
+        amount: parseFloat(transaction.sendAmount),
+        paymentMethod: transaction.paymentMethod,
+      };
+
+      await api.post(`transactions/${beneficiaryID}`);
+      const res = await api.put(`transactions/${beneficiaryID}/payment`, payload);
+
+      return res.data; 
+    } catch (err) {
+      console.log(err);
+    }
+
+  }; 
+
+  const handleProceed = async (e: React.FormEvent) => {
     e.preventDefault();
+    await createTransaction();
     navigate(`/send-money/${beneficiaryID}/transaction-summary`);
   }
 
@@ -54,10 +75,10 @@ function Step1() {
     let newValue = value;
 
     if (name === "sendAmount") {
-      if (newValue.length > 1) {
-        newValue = newValue.replace(/^0+/, "");
-      }
-      newValue = newValue.replace(/[^\d.]/g, "");
+      newValue = newValue.replace(/[^\d.]/g, '');
+      const parts = newValue.split('.');
+      if (parts.length > 2) newValue = parts[0] + '.' + parts[1];
+      if (!newValue.startsWith('0.')) newValue = newValue.replace(/^0+/, '');
     }
 
     setTransaction(prev => ({
@@ -65,8 +86,6 @@ function Step1() {
       [name]: newValue,
     }));
   };
-
-  console.log(transaction)
   return (
     <div className="flex flex-col w-full max-w-xs md:max-w-md mx-auto py-5 gap-2">
 
@@ -76,7 +95,6 @@ function Step1() {
         </div>
         <p className="text-gray-500 font-normal">You are sending to-</p>
         <h2 className="text-2xl font-bold">{fullName}</h2>
-        <p>ID:{beneficiaryID}</p>
       </section>
 
       <section>
@@ -179,7 +197,7 @@ function Step1() {
                   id="pay-by-bank"
                   name="paymentMethod"
                   checked={transaction.paymentMethod === "pay-by-bank"}
-                  value="pay-by-bank"
+                  value="Pay by Bank"
                   onChange={handleChange}
                   className="scale-180"
                 />
@@ -209,7 +227,7 @@ function Step1() {
                   id="online-bank-transfer"
                   name="paymentMethod"
                   checked={transaction.paymentMethod === "online-bank-transfer"}
-                  value="online-bank-transfer"
+                  value="Online Bank Transfer"
                   onChange={handleChange}
                   className="scale-180"
                 />
@@ -241,7 +259,7 @@ function Step1() {
                   type="radio"
                   id="card-payments"
                   name="paymentMethod"
-                  value="card-payments"
+                  value="Card Payments"
                   checked={transaction.paymentMethod === "card-payments"}
                   onChange={handleChange}
                   className="scale-180"
