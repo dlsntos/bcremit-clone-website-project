@@ -9,9 +9,7 @@
         public string AccountName { get; set; } = string.Empty;
         public string AccountNumber { get; set; } = string.Empty;
         public string SortCode { get; set; } = string.Empty;
-
         public decimal Balance { get; set; }
-
         public bool IsDefault { get; set; }
     }
 }

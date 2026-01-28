@@ -13,7 +13,6 @@ namespace BCRemitClone2.Server.Models
         [Required]
         public string AddressLineOne { get; set; } = string.Empty;
         public string? AddressLineTwo { get; set; } = string.Empty;
-
         [Required]
         public string CityOrTown { get; set; } = string.Empty;
         public string? ZipCode { get; set; } = string.Empty;
@@ -21,7 +20,6 @@ namespace BCRemitClone2.Server.Models
         public string DeliveryOption { get; set; } = string.Empty;
         [Required]
         public int? BeneficiaryId { get; set; }
-
         [ForeignKey(nameof(BeneficiaryId))]
         public Beneficiary? Beneficiary { get; set; }
     }
