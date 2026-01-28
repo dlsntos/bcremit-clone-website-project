@@ -34,7 +34,6 @@ function Step1() {
 
   const navigate = useNavigate();
 
-
   const createTransaction = async () => {
     try {
 
@@ -196,7 +195,7 @@ function Step1() {
                   type="radio"
                   id="pay-by-bank"
                   name="paymentMethod"
-                  checked={transaction.paymentMethod === "pay-by-bank"}
+                  checked={transaction.paymentMethod === "Pay by Bank"}
                   value="Pay by Bank"
                   onChange={handleChange}
                   className="scale-180"
@@ -226,7 +225,7 @@ function Step1() {
                   type="radio"
                   id="online-bank-transfer"
                   name="paymentMethod"
-                  checked={transaction.paymentMethod === "online-bank-transfer"}
+                  checked={transaction.paymentMethod === "Online Bank Transfer"}
                   value="Online Bank Transfer"
                   onChange={handleChange}
                   className="scale-180"
@@ -260,7 +259,7 @@ function Step1() {
                   id="card-payments"
                   name="paymentMethod"
                   value="Card Payments"
-                  checked={transaction.paymentMethod === "card-payments"}
+                  checked={transaction.paymentMethod === "Card Payments"}
                   onChange={handleChange}
                   className="scale-180"
                 />
