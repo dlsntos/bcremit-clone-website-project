@@ -34,7 +34,8 @@ function Step4() {
     navigate("/dashboard");
   }
 
-  const handleCancelPayment = () => {
+  const handleCancelPayment = async() => {
+    await api.post(`transactions/${beneficiaryID}/cancel-payment`);
     navigate("/dashboard")
   }
 

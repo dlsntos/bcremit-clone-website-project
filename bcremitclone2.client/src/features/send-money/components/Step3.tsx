@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router";
 import Button from "../../../components/ui/Button";
+import api from "../../../api/axios";
 
 function Step3() {
 
@@ -12,7 +13,8 @@ function Step3() {
     navigate(`/send-money/${beneficiaryID}/confirm-payment`);
   } 
 
-  const handleCancelPayment = () => {
+  const handleCancelPayment = async () => {
+    await api.post(`transactions/${beneficiaryID}/cancel-payment`);
     navigate("/dashboard")
   }
   return (
