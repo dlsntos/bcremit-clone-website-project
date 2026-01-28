@@ -50,9 +50,14 @@ namespace BCRemitClone2.Server.Controllers
 
         [Authorize]
         [HttpPut("{id}/payment")]
-        public async Task<IActionResult> UpdatePayment(Guid id, CreatePaymentDto createPaymentDto)
+        public async Task<IActionResult> UpdatePayment(int id, CreatePaymentDto createPaymentDto)
         {
-            var transaction = await _context.transactionHistories.FindAsync(id);
+            var transaction = await _context.transactionHistories
+                .Include(b => b.Beneficiary)
+                .Where(t => t.BeneficiaryId == id)
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+
             if (transaction == null) return NotFound();
 
             const decimal fixedFee = 2.99m;
@@ -69,9 +74,14 @@ namespace BCRemitClone2.Server.Controllers
 
         [Authorize]
         [HttpPut("{id}/purpose-of-remittance")]
-        public async Task<IActionResult> UpdatePurposeOfRemittance(Guid id, CreatePurposeOfRemittance createPaymentDto)
+        public async Task<IActionResult> UpdatePurposeOfRemittance(int id, CreatePurposeOfRemittance createPaymentDto)
         {
-            var transaction = await _context.transactionHistories.FindAsync(id);
+            var transaction = await _context.transactionHistories
+                .Include(b => b.Beneficiary)
+                .Where(t => t.BeneficiaryId == id)
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+
             if (transaction == null) return NotFound();
 
             transaction.PurposeOfRemittance = createPaymentDto.PurposeOfRemittance;
@@ -110,11 +120,13 @@ namespace BCRemitClone2.Server.Controllers
 
         [Authorize]
         [HttpGet("{id}/confirm-payment")]
-        public async Task<ActionResult<ConfirmPageDto>> GetConfirmPage(Guid id)
+        public async Task<ActionResult<ConfirmPageDto>> GetConfirmPage(int id)
         {
             var transaction = await _context.transactionHistories
                 .Include(b => b.Beneficiary)
-                .FirstOrDefaultAsync(t => t.Id == id);
+                .Where(t => t.BeneficiaryId == id)
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
 
             if (transaction == null) return NotFound();
 
@@ -152,10 +164,13 @@ namespace BCRemitClone2.Server.Controllers
 
         [Authorize]
         [HttpPost("{id}/confirm-payment")]
-        public async Task<IActionResult> ConfirmPayment(Guid id)
+        public async Task<IActionResult> ConfirmPayment(int id)
         {
             var transaction = await _context.transactionHistories
-                .FirstOrDefaultAsync(t => t.Id == id);
+                .Where(t => t.BeneficiaryId == id)
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+            //.FirstOrDefaultAsync(t => t.Id == id);
 
             if (transaction == null)
                 return NotFound();
@@ -181,9 +196,14 @@ namespace BCRemitClone2.Server.Controllers
 
         [Authorize]
         [HttpPost("{id}/cancel-payment")]
-        public async Task<IActionResult> CancelTransaction(Guid id)
+        public async Task<IActionResult> CancelTransaction(int id)
         {
-            var transaction = await _context.transactionHistories.FindAsync(id);
+            var transaction = await _context.transactionHistories
+                .Where(t => t.BeneficiaryId == id)
+                .OrderByDescending(t => t.CreatedAt)
+                .FirstOrDefaultAsync();
+            //.FindAsync(id);
+
             if (transaction == null) return NotFound();
 
             if (transaction.Status == TransactionStatus.Completed)
