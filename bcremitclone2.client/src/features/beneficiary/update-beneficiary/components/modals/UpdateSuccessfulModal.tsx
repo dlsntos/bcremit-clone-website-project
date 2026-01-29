@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import Button from "../../../../components/ui/Button";
+import Button from "../../../../../components/ui/Button";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 interface UpdateSuccesfulModalProps {
   successful: boolean;
