@@ -1,8 +1,11 @@
 import { useNavigate, useParams } from "react-router";
 import Button from "../../../components/ui/Button";
 import api from "../../../api/axios";
+import { useState } from "react";
+import TransactionCancelledModal from "./modals/TransactionCancelledModal";
 
 function Step3() {
+  const [cancelModal, setCancelModal] = useState<boolean>(false);
 
   const { id } = useParams();
   const beneficiaryID = Number(id);
@@ -15,7 +18,10 @@ function Step3() {
 
   const handleCancelPayment = async () => {
     await api.post(`transactions/${beneficiaryID}/cancel-payment`);
-    navigate("/dashboard")
+    setCancelModal(true);
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 10000);
   }
 
   return (
@@ -95,6 +101,7 @@ function Step3() {
           </Button>
         </div>
       </div>
+      {cancelModal && (<TransactionCancelledModal successful={cancelModal} />)}
     </section>
   );
 }

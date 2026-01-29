@@ -3,6 +3,7 @@ import Button from "../../../components/ui/Button";
 import { useEffect, useState } from "react";
 import api from "../../../api/axios";
 import TransactionSuccessModal from "./modals/TransactionSuccessModal";
+import TransactionCancelledModal from "./modals/TransactionCancelledModal";
 
 export interface BankInfo {
   bankName: string;
@@ -22,6 +23,7 @@ export interface TransactionData {
 function Step4() {
   const [transaction, setTransaction] = useState<TransactionData>();
   const [submitModal, setSubmitModal] = useState<boolean>(false);
+  const [cancelModal, setCancelModal] = useState<boolean>(false);
 
   const { id } = useParams();
   const beneficiaryID = Number(id);
@@ -42,10 +44,13 @@ function Step4() {
     }, 10000);
   }
 
-  const handleCancelPayment = async () => {
-    
+  const handleCancelPayment = async (e: React.FormEvent) => {
+    e.preventDefault();
     await api.post(`transactions/${beneficiaryID}/cancel-payment`);
-    navigate("/dashboard")
+    setCancelModal(true);
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 10000);
   }
 
   useEffect(() => {
@@ -141,6 +146,7 @@ function Step4() {
           Cancel
         </Button>
         {submitModal && (<TransactionSuccessModal successful={submitModal} />)}
+        {cancelModal && (<TransactionCancelledModal successful={cancelModal} />)}
       </div>
     </section>
   );
