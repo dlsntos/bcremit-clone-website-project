@@ -9,7 +9,6 @@ export const api = axios.create({
   },
 });
 
-console.log(BASE_URL);
 
 export const statusMessages: Record<number, string> = {
   400: "Bad request. Please check your input.",
