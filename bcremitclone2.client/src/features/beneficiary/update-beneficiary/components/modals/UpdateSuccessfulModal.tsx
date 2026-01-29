@@ -1,12 +1,9 @@
 import { useNavigate } from "react-router";
 import Button from "../../../../../components/ui/Button";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-interface UpdateSuccesfulModalProps {
-  successful: boolean;
-  onClose: () => void;
-}
+import type { ModalProps } from "../../../../../types/modal";
 
-function UpdateSuccessfulModal({ successful = false, onClose }: UpdateSuccesfulModalProps) {
+function UpdateSuccessfulModal({ successful = false, onClose }: ModalProps) {
   const navigate = useNavigate();
 
   const handleGoToDashboard = () => {

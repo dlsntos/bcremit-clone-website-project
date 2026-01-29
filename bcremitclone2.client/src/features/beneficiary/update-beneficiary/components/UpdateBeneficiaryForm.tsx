@@ -5,7 +5,7 @@ import TextInput from "components/ui/TextInput";
 import SelectInput from "components/ui/SelectInput";
 import useFetchSingleBeneficiary from "../../hooks/useFetchSingleBeneficiary";
 import { useState } from "react";
-import UpdateSuccessfulModal from "./UpdateSuccessfulModal";
+import UpdateSuccessfulModal from "./modals/UpdateSuccessfulModal";
 import { handleUpdateSubmit } from "../services/handleUpdateSubmit";
 import { renderDeliveryOption } from "../helper/RenderDeliveryOption";
 function UpdateBeneficiaryForm() {
