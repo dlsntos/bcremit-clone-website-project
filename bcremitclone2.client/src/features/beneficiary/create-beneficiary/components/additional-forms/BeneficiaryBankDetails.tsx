@@ -11,8 +11,9 @@ function BeneficiaryBankDetails() {
   const { clicked, createBeneficiary } = useCreateBeneficiary();
   const navigate = useNavigate();
 
-  const handleSave = () => {
-    createBeneficiary(formData);
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await createBeneficiary(formData);
     navigate("/dashboard");
   }
 

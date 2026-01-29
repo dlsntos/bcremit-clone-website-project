@@ -17,6 +17,7 @@ function Step3() {
     await api.post(`transactions/${beneficiaryID}/cancel-payment`);
     navigate("/dashboard")
   }
+
   return (
     <section className="flex flex-col w-full max-w-xs md:max-w-xl mx-auto py-5 gap-2 text-bluewhale">
       <h1 className="text-4xl font-bold mb-4">Important: Protect Yourself from Scams</h1>
