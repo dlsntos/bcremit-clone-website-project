@@ -14,17 +14,21 @@ function AuthProvider ({ children }: {children: React.ReactNode}) {
   const [user, setUser] = useState<AuthUser | null>(null);
 
   const login = async (data: AccountInfo) => {
-    const response = await api.post("user/login", data);
-    const token = response.data.token;
+    try {
+      const response = await api.post("user/login", data);
+      const token = response.data.token;
 
-    localStorage.setItem("token", token);
+      localStorage.setItem("token", token);
 
-    const decoded = jwtDecode<JwtPayload>(token);
+      const decoded = jwtDecode<JwtPayload>(token);
 
-    setUser({
-      id: decoded.sub,
-      email: decoded.email,
-    });
+      setUser({
+        id: decoded.sub,
+        email: decoded.email,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const logout = () => {
