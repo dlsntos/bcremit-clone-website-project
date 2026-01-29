@@ -1,4 +1,4 @@
-import { settingsRoute } from "../../../data/routeData/settingsRoute";
+import { settingsRoute } from "../../../data/cardData/settingsCardData";
 import ReferralCard from "./components/ReferralCard";
 import SettingsCard from "./components/SettingsCard";
 function Settings() {

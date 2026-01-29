@@ -1,5 +1,5 @@
 import Card from "../../../components/ui/Card";
-import { supportRoute } from "../../../data/routeData/supportRoute";
+import { supportRoute } from "../../../data/cardData/supportCardData";
 
 function Support() {
   return (
