@@ -16,7 +16,8 @@ function Step3() {
     navigate(`/send-money/${beneficiaryID}/confirm-payment`);
   } 
 
-  const handleCancelPayment = async () => {
+  const handleCancelPayment = async (e: React.FormEvent) => {
+    e.preventDefault();
     await api.post(`transactions/${beneficiaryID}/cancel-payment`);
     setCancelModal(true);
     setTimeout(() => {
