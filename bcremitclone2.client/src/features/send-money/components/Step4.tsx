@@ -39,7 +39,7 @@ function Step4() {
 
     setTimeout(() => {
       navigate("/dashboard");
-    }, 100000);
+    }, 10000);
   }
 
   const handleCancelPayment = async () => {
