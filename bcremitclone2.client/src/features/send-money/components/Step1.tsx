@@ -123,6 +123,7 @@ function Step1() {
                 placeholder="Enter amount"
                 className="flex-1 p-2 text-bluewhale border-1 border-gray-300 outline-blue-500 rounded-md"
                 required
+                autoComplete="off"
               />
             </div>
           </section>
