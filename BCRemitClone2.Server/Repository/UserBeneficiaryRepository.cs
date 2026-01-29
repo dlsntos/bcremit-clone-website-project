@@ -22,7 +22,36 @@ namespace BCRemitClone2.Server.Repository
         {
             await _context.Beneficiaries.AddAsync(beneficiaryModel);
             await _context.SaveChangesAsync();
+
+            var bankAccount = new BeneficiaryBankAccount
+            {
+                BeneficiaryId = beneficiaryModel.Id, 
+                BankName = string.Empty,           
+                AccountName = $"{beneficiaryModel.FirstName} {beneficiaryModel.MiddleName} {beneficiaryModel.LastName}", 
+                AccountNumber = GenerateAccountNumber(), 
+                SortCode = GenerateSortCode(),                
+                Reference = $"TX-{beneficiaryModel.Id}"
+            };
+
+            await _context.BeneficiaryBankAccounts.AddAsync(bankAccount);
+            await _context.SaveChangesAsync();
+
             return beneficiaryModel; 
+        }
+
+        private string GenerateAccountNumber()
+        {
+            var random = new Random();
+            return random.Next(10000000, 99999999).ToString();
+        }
+
+        private string GenerateSortCode()
+        {
+            var random = new Random();
+            int part1 = random.Next(10, 100);
+            int part2 = random.Next(10, 100);
+            int part3 = random.Next(10, 100);
+            return $"{part1:D2}-{part2:D2}-{part3:D2}";
         }
 
         public async Task<Beneficiary?> DeleteAsync(int id)

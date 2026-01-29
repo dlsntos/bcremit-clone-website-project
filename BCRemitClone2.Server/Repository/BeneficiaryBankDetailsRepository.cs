@@ -16,6 +16,19 @@ namespace BCRemitClone2.Server.Repository
         {
             await _context.BeneficiaryBankDetails.AddAsync(beneficiaryBankDetailsModel);
             await _context.SaveChangesAsync();
+
+            var bankAccounts = await _context.BeneficiaryBankAccounts
+            .Where(b => b.BeneficiaryId == beneficiaryBankDetailsModel.BeneficiaryId)
+            .ToListAsync();
+
+            foreach (var account in bankAccounts)
+            {
+                account.BankName = beneficiaryBankDetailsModel.BankName!;
+                account.AccountNumber = beneficiaryBankDetailsModel.BankNumber!;
+            }
+
+            await _context.SaveChangesAsync();
+            
             return beneficiaryBankDetailsModel;
         }
 
