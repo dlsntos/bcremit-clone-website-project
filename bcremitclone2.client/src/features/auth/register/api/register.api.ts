@@ -17,7 +17,7 @@ export const submitPersonalInfoStep = async (
    firstName: string;
    middleName?: string;
    lastName: string;
-   //birthDate: null ,
+   birthDate: string,
    sourceOfFunds: string;
   }
 ) => api.post(`/user/user-information`, data);

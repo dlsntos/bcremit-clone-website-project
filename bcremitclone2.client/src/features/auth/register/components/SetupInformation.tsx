@@ -18,10 +18,6 @@ function SetupInformation () {
   const currentYear = new Date().getFullYear();
   const years: number[] = Array.from({ length: currentYear - 1900 - 1 }, (_, i) => currentYear - i);
 
-  //const { day, month, year } = formData.birthDate;
-  //const monthNumber = (months.indexOf(month) + 1).toString().padStart(2, '0');
-  //const formattedBirthDate = `${year}-${monthNumber}-${day.padStart(2, '0')}`;
-
   const handleChange = (section: keyof RegisterFormData, field: string | undefined, value: string) => {
     dispatch({ type: "UPDATE_FIELD", section, field, value });
   };
@@ -37,24 +33,37 @@ function SetupInformation () {
     try {
       setLoading(true);
 
+      const { day, month, year } = formData.birthDate;
+
+      if (!day || !month || !year || day === "day" || month === "month" || year === "year") {
+        setError("Please select a valid birth date");
+        setLoading(false);
+        return;
+      }
+
+      const monthNumber = (months.indexOf(month) + 1).toString().padStart(2, "0");
+
+      const dayNumber = day.toString().padStart(2, "0");
+
+      const formattedBirthData = new Date(`${year}-${monthNumber}-${dayNumber}T00:00:00`).toISOString();
+
       await submitPersonalInfoStep(
         {
         firstName: formData.personalInfo.firstName,
         middleName: formData.personalInfo.middleName,
         lastName: formData.personalInfo.lastName,
-        //birthDate: formattedBirthDate,
+          birthDate: formattedBirthData,
         sourceOfFunds: formData.personalInfo.sourceOfFunds,
         }
       );
       return navigate("../setup-address");
-
     } catch (err: any) {
       setError(err.response?.data?.message ?? 'Failed to save account');
+      console.log(err);
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="h-full flex flex-col max-w-sm md:max-w-md px-10 md:px-0">

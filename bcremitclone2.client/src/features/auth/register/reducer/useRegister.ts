@@ -32,12 +32,10 @@ export const initialFormData: RegisterFormData = {
   }
 }
 
-
 type Action =
   | { type: "UPDATE_FIELD"; section: keyof RegisterFormData; field?: string; value: string }
   | { type: "RESET_FORM" };
 
-    
 export const registerReducer = (state: RegisterFormData, action: Action) => {
 
   switch (action.type) {
