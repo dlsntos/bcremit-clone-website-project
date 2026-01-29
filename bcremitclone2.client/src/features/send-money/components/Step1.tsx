@@ -98,6 +98,7 @@ function Step1() {
 
       <section>
         <form
+          onSubmit={handleProceed}
           className="flex flex-col gap-2"
         >
           <section className="">
@@ -121,6 +122,7 @@ function Step1() {
                 onChange={handleChange}
                 placeholder="Enter amount"
                 className="flex-1 p-2 text-bluewhale border-1 border-gray-300 outline-blue-500 rounded-md"
+                required
               />
             </div>
           </section>
@@ -199,6 +201,7 @@ function Step1() {
                   value="Pay by Bank"
                   onChange={handleChange}
                   className="scale-180"
+                  required
                 />
               </label>
               <label
@@ -268,7 +271,7 @@ function Step1() {
             </div>
           </section>
           <Button
-            onClick={handleProceed}
+            type="submit"
             className="block p-3 mt-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out cursor-pointer hover:bg-gray-400"
           >
             Proceed
