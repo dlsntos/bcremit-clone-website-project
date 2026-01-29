@@ -33,6 +33,7 @@ function TextInput({ label, input }: FormProps) {
         onChange={input.onChange || (() => { })}
         placeholder={input.placeholder}
         required={input.required}
+        autoComplete="off"
         className="font-figtree border-2 p-3 border-gray-300 outline-gray-300 rounded-lg focus:outline-3"
       />
     </section>
