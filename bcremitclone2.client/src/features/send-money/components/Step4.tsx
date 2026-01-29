@@ -19,9 +19,12 @@ export interface TransactionData {
   total: number;
 }
 function Step4() {
+  const [transaction, setTransaction] = useState<TransactionData>();
+  const [submitModal, setSubmitModal] = useState<boolean>(false);
+
   const { id } = useParams();
   const beneficiaryID = Number(id);
-  const [transaction, setTransaction] = useState<TransactionData>();
+
   const navigate = useNavigate();
 
   const handleConfirmPayment = async (e: React.FormEvent) => {
