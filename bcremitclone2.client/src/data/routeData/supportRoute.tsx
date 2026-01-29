@@ -1,14 +1,9 @@
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-interface SupportRoute {
-  title: string,
-  description: string,
-  icon: React.ReactNode,
-  route: string,
-};
+import type { CardData } from '../../types/cardData';
 
-export const supportRoute: SupportRoute [] = [
+export const supportRoute: CardData [] = [
   {
     title: "Call",
     description: "Our team is here to help, give us a call, anytime, anywhere.",

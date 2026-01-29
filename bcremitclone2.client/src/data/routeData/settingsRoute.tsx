@@ -5,14 +5,9 @@ import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import PersonRemoveAlt1OutlinedIcon from '@mui/icons-material/PersonRemoveAlt1Outlined';
 import LaptopOutlinedIcon from '@mui/icons-material/LaptopOutlined';
-export interface SettingsRoute {
-  icon: React.ReactNode,
-  title: string,
-  description: string,
-  route: string,
-}
+import type { CardData } from '../../types/cardData';
 
-export const settingsRoute: SettingsRoute[] = [
+export const settingsRoute: CardData[] = [
   {
     icon: <Person2OutlinedIcon/>,
     title: "My Account",
