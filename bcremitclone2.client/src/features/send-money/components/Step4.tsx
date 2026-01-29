@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import Button from "../../../components/ui/Button";
 import { useEffect, useState } from "react";
 import api from "../../../api/axios";
+import TransactionSuccessModal from "./modals/TransactionSuccessModal";
 
 export interface BankInfo {
   bankName: string;
@@ -34,10 +35,15 @@ function Step4() {
     } catch (err) {
       console.error(err)
     }
-    navigate("/dashboard");
+    setSubmitModal(true);
+
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 100000);
   }
 
-  const handleCancelPayment = async() => {
+  const handleCancelPayment = async () => {
+    
     await api.post(`transactions/${beneficiaryID}/cancel-payment`);
     navigate("/dashboard")
   }
@@ -134,6 +140,7 @@ function Step4() {
         >
           Cancel
         </Button>
+        {submitModal && (<TransactionSuccessModal successful={submitModal} />)}
       </div>
     </section>
   );
