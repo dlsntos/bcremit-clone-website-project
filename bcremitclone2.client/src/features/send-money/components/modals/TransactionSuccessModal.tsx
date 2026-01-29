@@ -13,9 +13,9 @@ function TransactionSuccessModal({ successful = false }: ModalProps) {
       open={successful}
       className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-black/50 z-100"
     >
-      <div className="flex flex-col justify-between items-center max-w-lg w-full h-[300px] py-10 bg-white text-center rounded-xl">
+      <div className="flex flex-col justify-center items-center max-w-xs md:max-w-lg w-full h-[300px] py-10 bg-white text-center rounded-xl">
         <section className="flex flex-row justify-center items-center">
-          <h1 className="text-bluewhale text-6xl font-bold font-figtree">Transaction Successful!</h1>
+          <h1 className="text-bluewhale text-4xl md:text-6xl font-bold font-figtree">Transaction Successful!</h1>
         </section>
         <section className="w-2/3 ">
           <Button
