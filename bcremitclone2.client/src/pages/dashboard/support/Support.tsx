@@ -14,9 +14,9 @@ function Support() {
       </section>
       <section className="w-full mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(3,minmax(0,300px))] auto-rows-[11rem] md:auto-rows-[15rem] place-content-start gap-10">
         {supportRoute.map((supportCardData) => (
-          <Card title={supportCardData.title}
-            description={supportCardData.description}
-            buttonName={supportCardData.title}
+          <Card title={supportCardData.title!}
+            description={supportCardData.description!}
+            buttonName={supportCardData.title!}
             icon={supportCardData.icon}
           />
         ))}

@@ -18,8 +18,8 @@ function Settings() {
       <section className="grid grid-cols-1 lg:grid-cols-[repeat(3,minmax(0,450px))] auto-rows-[10rem] md:auto-rows-[8rem] place-content-start mt-5 gap-5">
         {settingsRoute.map((settingsCard) => (
           <SettingsCard
-            title={settingsCard.title}
-            description={settingsCard.description}
+            title={settingsCard.title!}
+            description={settingsCard.description!}
             icon={settingsCard.icon}
             onClick={() => { }}
           />
