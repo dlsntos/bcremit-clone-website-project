@@ -1,14 +1,14 @@
 import type { CardData } from "../../types/cardData";
-import sssIcon from "src/assets/bcremit-pay-card-image/sss-icon.png";
-import pagibigIcon from "src/assets/bcremit-pay-card-image/pagibig-icon.png";
-import philhealthIcon from "src/assets/bcremit-pay-card-image/philhealth-icon.png";
-import owwaIcon from "src/assets/bcremit-pay-card-image/owwa-icon.png";
-import propertyPaymentIcon from "src/assets/bcremit-pay-card-image/house-icon.png";
-import corporatePaymentIcon from "src/assets/bcremit-pay-card-image/corpo-logo.png";
-import airtimeTopUpIcon from "src/assets/bcremit-pay-card-image/top-up-icon.png";
-import jollibeePadalaIcon from "src/assets/bcremit-pay-card-image/jollibee-icon.png";
+import sssIcon from "../../assets/bcremit-pay-card-image/sss-icon.png";
+import pagibigIcon from "../../assets/bcremit-pay-card-image/pagibig-icon.png";
+import philhealthIcon from "../../assets/bcremit-pay-card-image/philhealth-icon.png";
+import owwaIcon from "../../assets/bcremit-pay-card-image/owwa-icon.png";
+import propertyPaymentIcon from "../../assets/bcremit-pay-card-image/house-icon.png";
+import corporatePaymentIcon from "../../assets/bcremit-pay-card-image/corpo-logo.jpg";
+import airtimeTopUpIcon from "../../assets/bcremit-pay-card-image/top-up-icon.png";
+import jollibeePadalaIcon from "../../assets/bcremit-pay-card-image/jollibee-icon.png";
 
-export const bcRemitPayRoute: CardData[] = [
+export const bcRemitPayCardData: CardData[] = [
   {
     title: "Social Security System",
     description: "Easily manage your monthly SSS contrtibutions and other related payments.",
